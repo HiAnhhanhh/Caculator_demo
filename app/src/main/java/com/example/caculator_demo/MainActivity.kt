@@ -24,6 +24,28 @@ class MainActivity : AppCompatActivity() {
         setListener()
     }
 
+    private fun onPercentageClicked(){
+        if(inputValue_2== null){
+            val percentage = getInputValue1()/100
+            inputValue_1 = percentage
+            equation.clear().append(percentage)
+            updateInputOnDisplay()
+        }else{
+            val percentageOfValue2 = getInputValue2()/100
+            result = when(requireNotNull(currentOperator)){
+                Operator.ADDITION -> getInputValue1() + percentageOfValue2
+                Operator.SUBTRACTION -> getInputValue1() - percentageOfValue2
+                Operator.MULTIPLICATION -> getInputValue1() * percentageOfValue2
+                Operator.DIVISION -> getInputValue1() / percentageOfValue2
+            }
+            equation.clear().append(ZERO)
+            updateResultOnDisplay(isPercentage = true)
+            inputValue_1 = result
+            result = null
+            inputValue_2= null
+        }
+    }
+
     private fun onAllClearClicked (){
         inputValue_1 = 0.0
         inputValue_2 = null
@@ -111,6 +133,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 plusMinusBtn.setOnClickListener {
                     onPlusMinusClicked()
+                }
+                percentBtn.setOnClickListener {
+                    onPercentageClicked()
                 }
             }
         }
