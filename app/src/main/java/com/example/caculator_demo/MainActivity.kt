@@ -45,6 +45,15 @@ class MainActivity : AppCompatActivity() {
         currentOperator = operator
     }
 
+    private fun onPlusMinusClicked(){
+        if(equation.startsWith(MINUS)){
+            equation.deleteCharAt(0)
+        }else{
+            equation.insert(0, MINUS)
+        }
+        setInput()
+        updateInputOnDisplay()
+    }
 
     private fun onEqualsClicked() {
         if(inputValue_2 != null){
@@ -99,6 +108,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 allClearBtn.setOnClickListener {
                     onAllClearClicked()
+                }
+                plusMinusBtn.setOnClickListener {
+                    onPlusMinusClicked()
                 }
             }
         }
